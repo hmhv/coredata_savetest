@@ -128,24 +128,29 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
         {
             NSLog(@"Dual : Start Save");
             
-            uint64_t start = mach_absolute_time ();
+            uint64_t start1 = mach_absolute_time ();
             
             [moc save:nil];
 
-            uint64_t endstart = mach_absolute_time ();
+            uint64_t end1 = mach_absolute_time ();
             
-            [moc.parentContext save:nil];
-            
-            uint64_t end = mach_absolute_time ();
-            uint64_t elapsed1 = endstart - start;
-            uint64_t elapsed2 = end - endstart;
-            
-            NSLog(@"Dual : End Save");
-            
-            uint64_t nanos1 = elapsed1 * info.numer / info.denom;
-            uint64_t nanos2 = elapsed2 * info.numer / info.denom;
-            
-            NSLog(@"Dual : %f : %f", (CGFloat)nanos1 / NSEC_PER_SEC, (CGFloat)nanos2 / NSEC_PER_SEC);
+            [moc.parentContext performBlock:^{
+                
+                uint64_t start2 = mach_absolute_time ();
+
+                [moc.parentContext save:nil];
+                
+                uint64_t end2 = mach_absolute_time ();
+                uint64_t elapsed1 = end1 - start1;
+                uint64_t elapsed2 = end2 - start2;
+                
+                NSLog(@"Dual : End Save");
+                
+                uint64_t nanos1 = elapsed1 * info.numer / info.denom;
+                uint64_t nanos2 = elapsed2 * info.numer / info.denom;
+                
+                NSLog(@"Dual : %f : %f", (CGFloat)nanos1 / NSEC_PER_SEC, (CGFloat)nanos2 / NSEC_PER_SEC);
+            }];
         }
     }];
 }
