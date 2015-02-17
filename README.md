@@ -7,13 +7,16 @@
 
 ## Result
 
+> Saving time of 10000 managedObjects include relationship.
+
+> with Xcode6 + iPhone5s(iOS8)
+
 |   | MAIN DIRECT | BACK DIRECT | Dual |
 |---|---|---|---|
 |1st|1.442632s|1.442632s|1.539822s + 1.428477s|
 |2nd|1.459849s|1.467284s|1.274695s + 1.391884s|
 |3rd|1.483292s|1.485757s|1.534019s + 1.453961s|
 
-with Xcode6 + iPhone5s(iOS8)
 
 >2015-02-16 23:31:42.235 savetest[2743:1609920] MAIN DIRECT : Start Create Object
 2015-02-16 23:31:42.991 savetest[2743:1609920] MAIN DIRECT : End Create Object
